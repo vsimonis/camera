@@ -1,0 +1,370 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\lstset{language=sh,basicstyle=\ttfamily,breaklines}
+
+\begin{document}
+\section{OpenCV documentation}
+\begin{lstlisting}
+CV_CAP_PROP_POS_MSEC Current position of the video file in milliseconds or video capture timestamp.
+CV_CAP_PROP_POS_FRAMES 0-based index of the frame to be decoded/captured next.
+CV_CAP_PROP_POS_AVI_RATIO Relative position of the video file: 0 - start of the film, 1 - end of the film.
+CV_CAP_PROP_FRAME_WIDTH Width of the frames in the video stream.
+CV_CAP_PROP_FRAME_HEIGHT Height of the frames in the video stream.
+CV_CAP_PROP_FPS Frame rate.
+CV_CAP_PROP_FOURCC 4-character code of codec.
+CV_CAP_PROP_FRAME_COUNT Number of frames in the video file.
+CV_CAP_PROP_FORMAT Format of the Mat objects returned by retrieve() .
+CV_CAP_PROP_MODE Backend-specific value indicating the current capture mode.
+CV_CAP_PROP_BRIGHTNESS Brightness of the image (only for cameras).
+CV_CAP_PROP_CONTRAST Contrast of the image (only for cameras).
+CV_CAP_PROP_SATURATION Saturation of the image (only for cameras).
+CV_CAP_PROP_HUE Hue of the image (only for cameras).
+CV_CAP_PROP_GAIN Gain of the image (only for cameras).
+CV_CAP_PROP_EXPOSURE Exposure (only for cameras).
+CV_CAP_PROP_CONVERT_RGB Boolean flags indicating whether images should be converted to RGB.
+CV_CAP_PROP_WHITE_BALANCE Currently not supported
+CV_CAP_PROP_RECTIFICATION 
+\end{lstlisting}
+
+
+
+\section{UNIX tools to get information}
+\subsubsection{v4l-info}
+
+
+\subsubsection{Color Camera}
+\begin{lstlisting}[language=sh]
+v4l-info /dev/video1
+\end{lstlisting}
+
+\begin{lstlisting}[language=sh,breaklines]
+### v4l2 device info [/dev/video2] ###
+general info
+    VIDIOC_QUERYCAP
+	driver                  : "uvcvideo"
+	card                    : "e-con's 5MP AF USB Camera"
+	bus_info                : "usb-0000:00:1d.0-1.1"
+	version                 : 3.13.11
+	capabilities            : 0x84000001 [VIDEO_CAPTURE,STREAMING,(null)]
+
+standards
+
+inputs
+    VIDIOC_ENUMINPUT(0)
+	index                   : 0
+	name                    : "Camera 1"
+	type                    : CAMERA
+	audioset                : 0
+	tuner                   : 0
+	std                     : 0x0 []
+	status                  : 0x0 []
+
+video capture
+    VIDIOC_ENUM_FMT(0,VIDEO_CAPTURE)
+	index                   : 0
+	type                    : VIDEO_CAPTURE
+	flags                   : 0
+	description             : "YUV 4:2:2 (YUYV)"
+	pixelformat             : 0x56595559 [YUYV]
+    VIDIOC_ENUM_FMT(1,VIDEO_CAPTURE)
+	index                   : 1
+	type                    : VIDEO_CAPTURE
+	flags                   : 1
+	description             : "MJPEG"
+	pixelformat             : 0x47504a4d [MJPG]
+    VIDIOC_G_FMT(VIDEO_CAPTURE)
+	type                    : VIDEO_CAPTURE
+	fmt.pix.width           : 640
+	fmt.pix.height          : 480
+	fmt.pix.pixelformat     : 0x56595559 [YUYV]
+	fmt.pix.field           : NONE
+	fmt.pix.bytesperline    : 1280
+	fmt.pix.sizeimage       : 614400
+	fmt.pix.colorspace      : unknown
+	fmt.pix.priv            : 0
+
+controls
+    VIDIOC_QUERYCTRL(BASE+0)
+	id                      : 9963776
+	type                    : INTEGER
+	name                    : "Brightness"
+	minimum                 : -10
+	maximum                 : 10
+	step                    : 1
+	default_value           : 0
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+1)
+	id                      : 9963777
+	type                    : INTEGER
+	name                    : "Contrast"
+	minimum                 : 0
+	maximum                 : 20
+	step                    : 1
+	default_value           : 10
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+2)
+	id                      : 9963778
+	type                    : INTEGER
+	name                    : "Saturation"
+	minimum                 : 0
+	maximum                 : 10
+	step                    : 1
+	default_value           : 4
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+3)
+	id                      : 9963779
+	type                    : INTEGER
+	name                    : "Hue"
+	minimum                 : -5
+	maximum                 : 5
+	step                    : 1
+	default_value           : 0
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+12)
+	id                      : 9963788
+	type                    : BOOLEAN
+	name                    : "White Balance Temperature, Auto"
+	minimum                 : 0
+	maximum                 : 1
+	step                    : 1
+	default_value           : 1
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+16)
+	id                      : 9963792
+	type                    : INTEGER
+	name                    : "Gamma"
+	minimum                 : 100
+	maximum                 : 200
+	step                    : 1
+	default_value           : 150
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+19)
+	id                      : 9963795
+	type                    : INTEGER
+	name                    : "Gain"
+	minimum                 : 32
+	maximum                 : 48
+	step                    : 1
+	default_value           : 34
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+24)
+	id                      : 9963800
+	type                    : MENU
+	name                    : "Power Line Frequency"
+	minimum                 : 0
+	maximum                 : 2
+	step                    : 1
+	default_value           : 1
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+26)
+	id                      : 9963802
+	type                    : INTEGER
+	name                    : "White Balance Temperature"
+	minimum                 : 2800
+	maximum                 : 6500
+	step                    : 1
+	default_value           : 6500
+	flags                   : 16
+    VIDIOC_QUERYCTRL(BASE+27)
+	id                      : 9963803
+	type                    : INTEGER
+	name                    : "Sharpness"
+	minimum                 : 0
+	maximum                 : 10
+	step                    : 1
+	default_value           : 2
+	flags                   : 0
+    VIDIOC_QUERYCTRL(BASE+28)
+	id                      : 9963804
+	type                    : INTEGER
+	name                    : "Backlight Compensation"
+	minimum                 : 0
+	maximum                 : 1
+	step                    : 1
+	default_value           : 0
+	flags                   : 0
+\end{lstlisting}
+
+\subsection{guvcview}
+To get supported resolutions and expected frame rates: 
+Note: even using guvcview crashes the camera!!! \\
+\begin{tabular}[h]{l l l}
+height & width & fps \\
+\hline
+ 640 & 480 & 30 \\
+352 & 288 & 30 \\
+320 & 240 & 30 \\
+800 & 600 & 30  \\
+1024 & 768 & 30  \\
+1280 & 720 & 30 \\
+1920 & 1080& 30 \\
+1600 & 1200 & 15 \\
+2048 & 1536 & 15 \\
+2592 & 1944 & 15 \\
+\end{tabular}
+
+\begin{lstlisting}
+  Restarting: guvcview -d /dev/video2
+guvcview 1.7.1
+file guvcview_video.mkv has extension type 1
+file guvcview_image.jpg has extension type 0
+file guvcview_image.jpg has extension type 0
+Video file suffix detected: 0
+Image file suffix detected: 0
+ALSA lib pcm_dmix.c:1022:(snd_pcm_dmix_open) unable to open slave
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
+bt_audio_service_open: connect() failed: Connection refused (111)
+bt_audio_service_open: connect() failed: Connection refused (111)
+bt_audio_service_open: connect() failed: Connection refused (111)
+bt_audio_service_open: connect() failed: Connection refused (111)
+ALSA lib pcm_dmix.c:1022:(snd_pcm_dmix_open) unable to open slave
+Cannot connect to server socket err = No such file or directory
+Cannot connect to server request channel
+jack server is not running or cannot be started
+video device: /dev/video2 
+Init. e-con's 5MP AF USB Camera (location: usb-0000:00:1d.0-1.1)
+{ pixelformat = 'YUYV', description = 'YUV 4:2:2 (YUYV)' }
+{ discrete: width = 640, height = 480 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 352, height = 288 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 320, height = 240 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 2048, height = 1536 }
+	Time interval between frame: 2/5, 
+{ discrete: width = 2592, height = 1944 }
+	Time interval between frame: 2/5, 
+{ discrete: width = 800, height = 600 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 1024, height = 768 }
+	Time interval between frame: 1/10, 
+{ discrete: width = 1280, height = 720 }
+	Time interval between frame: 2/15, 
+{ discrete: width = 1920, height = 1080 }
+	Time interval between frame: 1/5, 
+{ discrete: width = 1600, height = 1200 }
+	Time interval between frame: 1/5, 
+{ pixelformat = 'MJPG', description = 'MJPEG' }
+{ discrete: width = 640, height = 480 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 352, height = 288 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 320, height = 240 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 2048, height = 1536 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 2592, height = 1944 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 800, height = 600 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1024, height = 768 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1280, height = 720 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1920, height = 1080 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1600, height = 1200 }
+	Time interval between frame: 1/15, 
+{ pixelformat = 'RGB3', description = 'RGB3' }
+{ discrete: width = 640, height = 480 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 352, height = 288 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 320, height = 240 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 2048, height = 1536 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 2592, height = 1944 }
+	Time interval between frame: 2/5, 
+{ discrete: width = 800, height = 600 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1024, height = 768 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1280, height = 720 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1920, height = 1080 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1600, height = 1200 }
+	Time interval between frame: 1/15, 
+{ pixelformat = 'BGR3', description = 'BGR3' }
+{ discrete: width = 640, height = 480 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 352, height = 288 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 320, height = 240 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 2048, height = 1536 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 2592, height = 1944 }
+	Time interval between frame: 2/5, 
+{ discrete: width = 800, height = 600 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1024, height = 768 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1280, height = 720 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1920, height = 1080 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1600, height = 1200 }
+	Time interval between frame: 1/15, 
+{ pixelformat = 'YU12', description = 'YU12' }
+{ discrete: width = 640, height = 480 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 352, height = 288 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 320, height = 240 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 2048, height = 1536 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 2592, height = 1944 }
+	Time interval between frame: 2/5, 
+{ discrete: width = 800, height = 600 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1024, height = 768 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1280, height = 720 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1920, height = 1080 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1600, height = 1200 }
+	Time interval between frame: 1/15, 
+{ pixelformat = 'YV12', description = 'YV12' }
+{ discrete: width = 640, height = 480 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 352, height = 288 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 320, height = 240 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 2048, height = 1536 }
+	Time interval between frame: 1/15, 
+{ discrete: width = 2592, height = 1944 }
+	Time interval between frame: 2/5, 
+{ discrete: width = 800, height = 600 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1024, height = 768 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1280, height = 720 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1920, height = 1080 }
+	Time interval between frame: 1/30, 
+{ discrete: width = 1600, height = 1200 }
+	Time interval between frame: 1/15, 
+vid:2560 
+pid:c051 
+driver:uvcvideo
+checking format: 1196444237
+VIDIOC_G_COMP:: Inappropriate ioctl for device
+fps is set to 1/30
+drawing controls
+
+fps is set to 1/30
+Checking video mode 640x480@32bpp : OK 
+\end{lstlisting}
+
+
+
+\section{Capture and Release}
+\end{document}
